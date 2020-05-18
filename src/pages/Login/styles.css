@@ -1,0 +1,55 @@
+.login-container{
+    width: 100%;
+    max-width: 380px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+
+}
+
+
+.login-container form{    
+    margin-top: 100px;
+}
+
+.login-container form h1{
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+
+.login-container form input{    
+    width: 100%;
+    height: 60px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 24px;
+}
+
+.login-container form input + input{
+    margin-top: 14px;
+}
+
+.login-container form a{
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    color: #41414d;
+    font-size: 16px;    
+    text-decoration: none;
+    font-weight: bold;
+    
+}
+
+.login-container form a:hover{
+    text-decoration: underline;
+
+}
+
+.login-container form a svg{
+    margin-right: 8px;
+}
