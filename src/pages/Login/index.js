@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {FiLogIn} from 'react-icons/fi';
 
 import './styles.css';
@@ -9,6 +9,15 @@ import apiReq from '../../services/apiReq';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
+    const token = localStorage.getItem('token');
+
+
+    if(token) {
+        alert("Você está logado na sua conta");
+        history.push('/explore');
+        
+    }
 
     async function handleLogin(e) {
         e.preventDefault(); 
@@ -19,8 +28,9 @@ export default function Login() {
             const token = response.data.token;
             console.log(token);
             localStorage.setItem('token', token);
+            history.push('/explore');
         } catch(err) {
-            console.log("Erro ao realizar login");
+            alert("Entre com login válido");
         }
     }
 

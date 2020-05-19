@@ -11,6 +11,15 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const [confPassword, setConfPassword] = useState('');
     const history = useHistory();
+    const token = localStorage.getItem('token');
+
+
+
+    if(token) {
+        alert("Você está logado na sua conta");
+        history.push('/explore');
+        
+    }
 
 
     async function handleSignUp(e){

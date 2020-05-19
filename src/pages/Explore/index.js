@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { FiPower } from 'react-icons/fi';
+import {useHistory} from 'react-router-dom';
 
 import apiWeather from '../../services/apiWeather';
 
 import './styles.css';
 
 export default function Explore() {
-    const [cityName, setCityName] = useState('');
-    const [repositories, setRepositories] = useState([]);
+    const [cityName, setCityName] = useState('');    
     const iconUrl ='http://openweathermap.org/img/w/';
     const format= '.png';
+    const history= useHistory();
+    const token = localStorage.getItem('token');
+    const [repositories, setRepositories] = useState(() => {
+        const storagedRepositories = localStorage.getItem('@WeatherNow:repositories');
+        if(storagedRepositories) {
+            return JSON.parse(storagedRepositories);
+        }
+        return [];
+    });
+
+
+    if(!token) {        
+        history.push('/');
+        
+    }
 
     
     
@@ -19,6 +34,7 @@ export default function Explore() {
           JSON.stringify(repositories),
         );
       }, [repositories]);
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -34,8 +50,7 @@ export default function Explore() {
         }
 
         try {
-            const response = await apiWeather.get(`/weather?q=${cityName}&appid=83a9db599874d9f5683e2016c92ae339`);
-            console.log(response.data);
+            const response = await apiWeather.get(`/weather?q=${cityName}&appid=83a9db599874d9f5683e2016c92ae339`);            
             setRepositories([...repositories, response.data]);
             setCityName('');
         } catch (err) {
@@ -44,11 +59,16 @@ export default function Explore() {
 
     }
 
+    function handleLogout() {
+        localStorage.clear();
+        history.push('/');
+    }
+
     return (
 
         <div className="explore-container">
             <header>
-                <button type="button">
+                <button onClick={handleLogout} type="button">
                     <FiPower size={18} color="red" />
                 </button>
             </header>
