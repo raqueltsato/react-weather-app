@@ -1,11 +1,35 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {FiArrowLeft} from 'react-icons/fi'
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
+import apiReq from '../../services/apiReq';
 import './styles.css';
 import logoImg from '../../assets/logo.svg';
 
 export default function SignUp() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confPassword, setConfPassword] = useState('');
+    const history = useHistory();
+
+
+    async function handleSignUp(e){
+        e.preventDefault();     
+        try{
+            if(password !== confPassword) {
+                console.log("Senhas diferentes");
+                return;
+            }        
+    
+            const data = {email, password};
+            console.log(data);
+            const response = await apiReq.post('/register', data);
+            console.log(response.data);
+            history.push('/');
+        } catch(err) {
+            alert("Erro ao cadastrar, tente novamente")
+        }
+    }
 
     return (
         <div className="signup-container">
@@ -18,10 +42,10 @@ export default function SignUp() {
                     Voltar para a página de Login 
                 </Link>
                 </section>
-                <form>
-                    <input type="email"placeholder="Digite seu e-mail"/>
-                    <input type="password" placeholder="Digite a senha" />
-                    <input type="password" placeholder="Confirme a senha" />
+                <form onSubmit={handleSignUp}>
+                    <input value={email} onChange={e =>setEmail(e.target.value)} type="email"placeholder="Digite seu e-mail"/>
+                    <input value={password} onChange={e =>setPassword(e.target.value)} type="password" placeholder="Digite a senha" />
+                    <input value={confPassword} onChange={e =>setConfPassword(e.target.value)} type="password" placeholder="Confirme a senha" />
                     <button className="button" type="submit">Cadastrar</button>
                 </form>
             </div>
