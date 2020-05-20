@@ -6,6 +6,9 @@ import apiReq from '../../services/apiReq';
 import './styles.css';
 import logoImg from '../../assets/logo.svg';
 
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+
 export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,8 +18,7 @@ export default function SignUp() {
 
 
 
-    if(token) {
-        alert("Você está logado na sua conta");
+    if(token) {        
         history.push('/explore');
         
     }
@@ -26,7 +28,9 @@ export default function SignUp() {
         e.preventDefault();     
         try{
             if(password !== confPassword) {
-                console.log("Senhas diferentes");
+                alert("A senha não confere");
+                setPassword('');
+                setConfPassword('');
                 return;
             }        
     
@@ -36,7 +40,10 @@ export default function SignUp() {
             console.log(response.data);
             history.push('/');
         } catch(err) {
-            alert("Erro ao cadastrar, tente novamente")
+            alert("Erro ao cadastrar, tente novamente");
+            setEmail('');
+            setPassword('');
+            setConfPassword('');
         }
     }
 
@@ -52,10 +59,10 @@ export default function SignUp() {
                 </Link>
                 </section>
                 <form onSubmit={handleSignUp}>
-                    <input value={email} onChange={e =>setEmail(e.target.value)} type="email"placeholder="Digite seu e-mail"/>
-                    <input value={password} onChange={e =>setPassword(e.target.value)} type="password" placeholder="Digite a senha" />
-                    <input value={confPassword} onChange={e =>setConfPassword(e.target.value)} type="password" placeholder="Confirme a senha" />
-                    <button className="button" type="submit">Cadastrar</button>
+                    <Input value={email} onChange={e =>setEmail(e.target.value)} type="email"placeholder="Digite seu e-mail"/>
+                    <Input value={password} onChange={e =>setPassword(e.target.value)} type="password" placeholder="Digite a senha" />
+                    <Input value={confPassword} onChange={e =>setConfPassword(e.target.value)} type="password" placeholder="Confirme a senha" />
+                    <Button type="submit">Cadastrar</Button>
                 </form>
             </div>
         </div>

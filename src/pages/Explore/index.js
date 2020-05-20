@@ -11,6 +11,7 @@ export default function Explore() {
     const iconUrl ='http://openweathermap.org/img/w/';
     const format= '.png';
     const history= useHistory();
+    const [isLoading, setisLoading] = useState('');
     const token = localStorage.getItem('token');
     const [repositories, setRepositories] = useState(() => {
         const storagedRepositories = localStorage.getItem('@WeatherNow:repositories');
@@ -50,9 +51,11 @@ export default function Explore() {
         }
 
         try {
+            setisLoading('Carregando...');
             const response = await apiWeather.get(`/weather?q=${cityName}&appid=83a9db599874d9f5683e2016c92ae339`);            
             setRepositories([...repositories, response.data]);
             setCityName('');
+            setisLoading('');
         } catch (err) {
             console.log(err);
         }
@@ -77,8 +80,9 @@ export default function Explore() {
             <form onSubmit={handleSubmit}>
                 <input value={cityName} onChange={e => setCityName(e.target.value)} placeholder="Nome da cidade"></input>
                 <button type="submit">Pesquisar</button>
+                           
             </form>
-
+            <div className="load"> {isLoading} </div>
 
 
             <ul className="result" id="result">

@@ -6,6 +6,9 @@ import './styles.css';
 import logoImg from '../../assets/logo.svg';
 import apiReq from '../../services/apiReq';
 
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,8 +17,8 @@ export default function Login() {
 
 
     if(token) {
-        alert("Você está logado na sua conta");
-        history.push('/explore');
+        history.push('/explore');       
+        
         
     }
 
@@ -30,7 +33,7 @@ export default function Login() {
             localStorage.setItem('token', token);
             history.push('/explore');
         } catch(err) {
-            alert("Entre com login válido");
+            alert("Entre com login válido", err);
         }
     }
 
@@ -39,9 +42,9 @@ export default function Login() {
             <img src={logoImg} alt="Weather Now" />
             <form onSubmit={handleLogin}>
                 <h1>Faça seu login</h1>
-                <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Digite seu e-mail" />
-                <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Digite sua senha" />
-                <button className="button" type="submit">Acessar</button>
+                <Input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Digite seu e-mail" />
+                <Input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Digite sua senha" />
+                <Button type="submit">Acessar</Button>
                 <Link className="icon-link" to="/signup">
                     <FiLogIn size={18} color="red"/>
                     Criar cadastro
