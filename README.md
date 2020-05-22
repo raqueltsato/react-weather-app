@@ -41,7 +41,7 @@ In this page you could register using the e-mail: eve.holt@reqres.in and passwor
 
 This page is available only if you login.
 This app allows to explore the current weather in any city you enter in the input text.
-To get back in previusly page, you have to logout.
+To get back in previously page, you have to logout.
 
 ![](https://github.com/raqueltsato/react-weather-app/blob/master/src/assets/explorePage.gif)
 
